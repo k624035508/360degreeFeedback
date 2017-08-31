@@ -1,0 +1,39 @@
+.report-body{
+    width:1300px; background: white; margin: 20px auto; padding: 10px;
+}
+ul{ list-style: none;}
+li{ height: 35px; line-height: 35px; }
+.report-content ul li{ border: 1px solid #d2d2d2; }
+.report-header{ font-size: 30px; margin-bottom: 30px; color: #464646; line-height: 40px; text-align: center;}
+.report-name {width: 1100px; height: 40px;}
+.report-name .answer-name { float: left; width: 300px; }
+.report-body ul.report-left{  width: 140px; text-align: center; float: left;  }
+.report-item-div{ display: inline-block; width: 1140px; overflow-x: scroll;  }
+.report-item-content{ min-width:1500px;}
+.report-body ul.report-item{  text-align: center; float: left;  }
+.report-body ul.report-item li span{min-width: 70px; display: inline-block; text-align: center;}
+.report-content{min-width: 600px; margin:0 auto 40px auto; text-align: center; }
+
+.report-body2{
+    width:800px; background: white; margin: 20px auto; padding: 10px;
+}
+.report-feedbackItem{
+ width: 100%; margin-bottom: 30px;
+}
+.report-feedbackItem .itemDesc {
+    font-weight:bold;font-size:16px;text-align:left; color: #333333; margin-bottom: 10px;
+}
+.report-feedbackItem table {width: 100%; border-top: 1px solid #d7d7d7; border-left: 1px solid #d7d7d7;
+    border-collapse: collapse;
+}
+.report-feedbackItem table tr{ height:35px;}
+.report-feedbackItem table tr td{
+    border-right: 1px solid #d7d7d7; border-bottom: 1px solid #d7d7d7; color: #333;
+    padding: 3px 10px;
+}
+a.checkDetail{
+    display: inline-block; height:22px; text-decoration: none; line-height: 22px;
+    border: 1px solid #dbdbdb; border-radius: 5px; font-size: 12px; color: #333;
+    padding: 0 15px;
+}
+a.checkDetail:hover{ border: 1px solid #2392f0; text-decoration: none; }

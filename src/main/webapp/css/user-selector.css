@@ -1,0 +1,21 @@
+textarea{ overflow: auto; word-wrap: normal; resize: none; }
+.modal-right{ padding-left: 20px;}
+.user-left ul{
+    list-style: none;
+}
+.user-left ul li{
+    height:30px; line-height: 30px;
+}
+#userSelectList tr td{ width: 80px; height:30px; line-height: 30px; padding-left: 15px; border: 1px solid #d2d2d2;}
+#userSelectList tr td.user-delete { font-size: 25px; color: red; font-weight: bold; cursor: pointer;}
+
+.selectDimensionTableClass tr td{ width: 80px; height:30px; line-height: 30px; padding: 0 15px !important; border: 1px solid #d2d2d2;}
+.selectDimensionTableClass tr td.user-delete { font-size: 25px; color: red; font-weight: bold; cursor: pointer;}
+
+.user-selector table{ width: 250px; }
+.user-selector table tr{ width:250px; float: left; }
+.user-selector table td, .user-selector table th{box-sizing: border-box; border: 1px solid #d2d2d2; float: left; padding: 8px; text-align: left; }
+.user-selector table td:first-child, .user-selector table th:first-child{ width:35%; }
+.user-selector table td:nth-child(2), .user-selector table th:nth-child(2){ width: 65%; }
+
+.examinee-table tr td{ border: 1px solid #d2d2d2;}

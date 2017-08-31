@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+	<!-- 指明满足“/*”的页面，将被“/WEB-INF/page/layouts/default.jsp”所装饰 -->
+ 	<mapping path="/*" decorator="/WEB-INF/page/layouts/default.jsp"/>
+ 	<mapping path="/design/my-survey-design*" exclue="true"/>
+	<mapping path="/design/my-feedback-design*" exclue="true" />
+	<mapping path="/department.action*" exclue="true" />
+	<!-- 指明满足"/survey!*"的页面,将被排除,不被装饰 -->
+ 	<mapping path="/survey!*" exclue="true"/>
+ 	<mapping path="/survey.*" exclue="true"/>
+	<mapping path="/feedback!*" exclue="true"/>
+	<mapping path="/feedback.*" exclue="true"/>
+ 	
+ 	<mapping path="/response*" exclue="true"/>
+ 	<!-- <mapping path="/da/my-survey-answer!responseAnswer.action" exclue="true"/> -->
+</sitemesh>
