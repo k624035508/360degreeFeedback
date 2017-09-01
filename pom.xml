@@ -7,6 +7,20 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>diaowen Maven Webapp</name>
   <url>https://github.com/wkeyuan/DWSurvey</url>
+	<!--<repositories>-->
+		<!--<repository>-->
+			<!--<id>nexus</id>-->
+			<!--<name>Team Nexus Repository</name>-->
+			<!--<url>http://localhost:8081/nexus/content/groups/public</url>-->
+		<!--</repository>-->
+	<!--</repositories>-->
+	<!--<pluginRepositories>-->
+		<!--<pluginRepository>-->
+			<!--<id>nexus</id>-->
+			<!--<name>Team Nexus Repository</name>-->
+			<!--<url>http://localhost:8081/nexus/content/groups/public</url>-->
+		<!--</pluginRepository>-->
+	<!--</pluginRepositories>-->
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -590,6 +604,7 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+			<encoding>utf8</encoding>
         </configuration>
       </plugin>
       <plugin>

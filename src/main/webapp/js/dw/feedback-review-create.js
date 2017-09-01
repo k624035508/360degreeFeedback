@@ -40,7 +40,7 @@ $(function () {
     });
     //选择模板时清空数据
     $("select").bind("change",function(){
-        alert(123);
+        // alert(123);
     });
     //被考核人modal
     $("a#selectExaminee").click(function () {
