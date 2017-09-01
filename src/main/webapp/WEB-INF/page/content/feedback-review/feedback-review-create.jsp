@@ -94,26 +94,26 @@
                                                         <a href="javascript:;" id="selectExaminee">选择</a>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td width="150" align="right"><span class="red-color">*&nbsp;</span>权重设置</td>
-                                                    <td class="ac-input-td">
-                                                        <table>
-                                                            <tr><th>维度名称</th><th>权重(%)</th></tr>
-                                                            <c:forEach items="${dimensionList}" var="dimensionList">
-                                                                <tr class="selectDimensionTr">
-                                                                    <td>${dimensionList.name}</td>
-                                                                    <td><input type="text" name="dimension_${dimensionList.id}_weight" id="dimension_${dimensionList.id}_weight"
-                                                                            <c:forEach items="${reviewDimensionList}" var="reviewDimension">
-                                                                                <c:if test="${reviewDimension.dimensionId eq dimensionList.id}">value="${reviewDimension.weight}"</c:if>
-                                                                            </c:forEach>
-                                                                               value="0"
-                                                                    />
-                                                                    </td>
-                                                                </tr>
-                                                            </c:forEach>
-                                                        </table>
-                                                    </td>
-                                                </tr>
+                                                <%--<tr>--%>
+                                                    <%--<td width="150" align="right"><span class="red-color">*&nbsp;</span>权重设置</td>--%>
+                                                    <%--<td class="ac-input-td">--%>
+                                                        <%--<table>--%>
+                                                            <%--<tr><th>维度名称</th><th>权重(%)</th></tr>--%>
+                                                            <%--<c:forEach items="${dimensionList}" var="dimensionList">--%>
+                                                                <%--<tr class="selectDimensionTr">--%>
+                                                                    <%--<td>${dimensionList.name}</td>--%>
+                                                                    <%--<td><input type="text" name="dimension_${dimensionList.id}_weight" id="dimension_${dimensionList.id}_weight"--%>
+                                                                            <%--<c:forEach items="${reviewDimensionList}" var="reviewDimension">--%>
+                                                                                <%--<c:if test="${reviewDimension.dimensionId eq dimensionList.id}">value="${reviewDimension.weight}"</c:if>--%>
+                                                                            <%--</c:forEach>--%>
+                                                                               <%--value="0"--%>
+                                                                    <%--/>--%>
+                                                                    <%--</td>--%>
+                                                                <%--</tr>--%>
+                                                            <%--</c:forEach>--%>
+                                                        <%--</table>--%>
+                                                    <%--</td>--%>
+                                                <%--</tr>--%>
                                             </table>
                                         </td>
                                     </tr>

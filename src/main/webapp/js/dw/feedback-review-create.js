@@ -39,28 +39,28 @@ $(function () {
         $(this).next().modal();
     });
     //选择模板时清空数据
-    // $("select").bind("change",function(){
-    //     alert(123);
-    // });
+    $("select").bind("change",function(){
+        alert(123);
+    });
     //被考核人modal
     $("a#selectExaminee").click(function () {
-        // $("#examineeModal2 .div-set .div-set-top").show();
-        // $("#examineeModal2 .div-set .div-set-middle").show();
-        // $("#examineeModal2 .div-set .div-set-bottom").show();
-        // var ownWeight = $("option:selected").data()["ownWeight"];
-        // var topWeight = $("option:selected").data()["topWeight"];
-        // var middleWeight = $("option:selected").data()["middleWeight"];
-        // var bottomWeight = $("option:selected").data()["bottomWeight"];
-        // console.log(ownWeight,topWeight,middleWeight,bottomWeight);
-        // if(topWeight == "0") {
-        //     $("#examineeModal2 .div-set .div-set-top").hide();
-        // }
-        // if(middleWeight == "0") {
-        //     $("#examineeModal2 .div-set .div-set-middle").hide();
-        // }
-        // if(bottomWeight == "0") {
-        //     $("#examineeModal2 .div-set .div-set-bottom").hide();
-        // }
+        $("#examineeModal2 .div-set .div-set-top").show();
+        $("#examineeModal2 .div-set .div-set-middle").show();
+        $("#examineeModal2 .div-set .div-set-bottom").show();
+        var ownWeight = $("option:selected").data()["ownWeight"];
+        var topWeight = $("option:selected").data()["topWeight"];
+        var middleWeight = $("option:selected").data()["middleWeight"];
+        var bottomWeight = $("option:selected").data()["bottomWeight"];
+        console.log(ownWeight,topWeight,middleWeight,bottomWeight);
+        if(topWeight == "0") {
+            $("#examineeModal2 .div-set .div-set-top").hide();
+        }
+        if(middleWeight == "0") {
+            $("#examineeModal2 .div-set .div-set-middle").hide();
+        }
+        if(bottomWeight == "0") {
+            $("#examineeModal2 .div-set .div-set-bottom").hide();
+        }
         $("#examineeModal2").modal();
     });
     $(".user-left li").click(function () {
