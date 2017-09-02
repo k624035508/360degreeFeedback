@@ -577,9 +577,11 @@
 
 	   <!-- local lib -->
 		<dependency>
-  			<groupId>net.qrcode</groupId>
-  			<artifactId>qrcode</artifactId>
-  			<version>1.0</version>
+			<groupId>local.QRCode.jar</groupId>
+			<artifactId>QRCode.jar</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/QRCode.jar</systemPath>
 		</dependency>
 		<dependency>
 				<groupId>net.xssprotect</groupId>
