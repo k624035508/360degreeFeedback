@@ -28,6 +28,7 @@ import java.util.*;
         @Result(name=CrudActionSupport.INPUT, location = "/WEB-INF/page/content/feedback-review/feedback-review-create.jsp", type = Struts2Utils.DISPATCHER),
         @Result(name=CrudActionSupport.RELOAD, location = "/review/design/feedback-review.action", type = Struts2Utils.REDIRECT)
 })
+@AllowedMethods({"checkExamineeUn"})
 public class FeedbackReviewAction extends CrudActionSupport<FeedbackReview, String> {
 
     @Autowired
@@ -196,22 +197,33 @@ public class FeedbackReviewAction extends CrudActionSupport<FeedbackReview, Stri
         return RELOAD;
     }
 
-//    @Override
-//    public String save() throws Exception{
-//        HttpServletRequest request = Struts2Utils.getRequest();
-//        HttpServletResponse reponse = Struts2Utils.getResponse();
-//        String mapString = request.getParameter("examineeValue");
-//        JSONObject jsonObject = JSONObject.fromObject(mapString);
-//        Map<String, Map<String, Object>> userMaps = (Map) jsonObject;
-//        for(String key: userMaps.keySet()){
-//            Map<String, Object> userMapItem = userMaps.get(key);
-//            for(String keyItem: userMapItem.keySet()) {
-//                reponse.getWriter().println(keyItem + "+" + userMapItem.get(keyItem));
-//            }
-//        }
-//        return null;
-//    }
-
+    public void checkExamineeUn() throws Exception{
+        HttpServletRequest request = Struts2Utils.getRequest();
+        HttpServletResponse response = Struts2Utils.getResponse();
+        String mapString = request.getParameter("examineeValue");
+        JSONObject jasonObject = JSONObject.fromObject(mapString);
+        Map<String, Map<String, Object>> userMap = (Map) jasonObject;
+        String result="true";
+        for(String key: userMap.keySet()) {
+            Map<String, Object> userMapItem = userMap.get(key);
+            User examineeUser = userManager.findNicknameUn(null, key);
+            if(examineeUser==null){
+                result="false";
+                break;
+            }
+            for (String keyItem : userMapItem.keySet()) {
+                String[] userNames = keyItem.split("\\|");
+                for(int k = 0; k < userNames.length; k++){
+                    User investigateUser = userManager.findNicknameUn(null, userNames[k]);
+                    if (investigateUser == null){
+                        result = "false";
+                        break;
+                    }
+                }
+            }
+        }
+        response.getWriter().write(result);
+    }
 
     @Override
     protected void prepareModel() throws Exception{

@@ -18,6 +18,8 @@ public interface UserManager extends BaseService<User, String>{
 
 	public User findNameUn(String id, String loginName);
 
+	public User findNicknameUn(String id, String name);
+
 	public User findEmailUn(String id, String email);
 
 	public User findByCode(String code);

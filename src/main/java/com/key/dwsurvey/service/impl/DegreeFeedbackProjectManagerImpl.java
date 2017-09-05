@@ -101,6 +101,7 @@ public class DegreeFeedbackProjectManagerImpl extends BaseServiceImpl<DegreeFeed
                     feedbackDetail.setTopWeight(feedbackDetailTemp.getTopWeight());
                     feedbackDetail.setMiddleWeight(feedbackDetailTemp.getMiddleWeight());
                     feedbackDetail.setBottomWeight(feedbackDetailTemp.getBottomWeight());
+                    feedbackDetail.setParamScore(feedbackDetailTemp.getParamScore());
                 }
             } else {
                 feedbackDetail = new FeedbackDetail();
@@ -109,6 +110,7 @@ public class DegreeFeedbackProjectManagerImpl extends BaseServiceImpl<DegreeFeed
                 feedbackDetail.setTopWeight("0");
                 feedbackDetail.setMiddleWeight("0");
                 feedbackDetail.setBottomWeight("0");
+                feedbackDetail.setParamScore(5);
             }
             feedbackDetail.setDirId(id);
             feedbackDetailManager.save(feedbackDetail);

@@ -98,6 +98,7 @@ public class MyFeedbackDesignAction extends ActionSupport {
             String topWeight = request.getParameter("topWeight");
             String middleWeight = request.getParameter("middleWeight");
             String bottomWeight = request.getParameter("bottomWeight");
+            Integer paramScore = Integer.parseInt(request.getParameter("paramScore"));
             DegreeFeedbackProject degreeFeedbackProject = degreeFeedbackProjectManager.getFeedback(feedbackId);
             FeedbackDetail feedbackDetail = degreeFeedbackProject.getFeedbackDetail();
             User user = accountManager.getCurUser();
@@ -117,6 +118,7 @@ public class MyFeedbackDesignAction extends ActionSupport {
                     feedbackDetail.setTopWeight(topWeight);
                     feedbackDetail.setMiddleWeight(middleWeight);
                     feedbackDetail.setBottomWeight(bottomWeight);
+                    feedbackDetail.setParamScore(paramScore);
                     degreeFeedbackProjectManager.save(degreeFeedbackProject);
                     response.getWriter().write("true");
                 }

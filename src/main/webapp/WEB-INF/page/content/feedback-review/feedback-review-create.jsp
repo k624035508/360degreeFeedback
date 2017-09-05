@@ -9,11 +9,9 @@
     <link href="${ctx }/js/plugs/jquery-ui-1.10.3.custom/css/mycss/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css" />
     <script src="${ctx }/js/plugs/bootstrap-3.3.0-dist/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="${ctx}/css/user-selector.css">
-    <script src="${ctx}/js/dw/feedback-review-create.js"></script>
     <link href="${ctx}/js/plugs/validate/jquery.validate.css" type="text/css" rel="stylesheet" />
     <script src="${ctx}/js/plugs/validate/jquery.validate.js" type="text/javascript"></script>
-    <script src="${ctx}/js/plugs/validate/messages_cn.js" type="text/javascript"></script>
-    <script src="${ctx }/js/plugs/validate/jquery.metadata.js" type="text/javascript"></script>
+    <script src="${ctx}/js/dw/feedback-review-create.js"></script>
     <title>新建测评考核</title>
     <style type="text/css">
         .ac-input-td input,.ac-input-td select{
@@ -24,16 +22,6 @@
             color: red;
         }
     </style>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".textarea-submit").validate({
-                rules:{
-                    loginName:{},
-                    email: {}
-                }
-            })
-        })
-    </script>
 </head>
 <body>
 <div style="margin-top: 15px;">
@@ -47,8 +35,11 @@
             <div class="surveyCollectMiddle">
 
                 <form id="inputReviewForm" action="${ctx }/review/design/feedback-review!save.action" method="post" >
-                    <input type="hidden" name="examineeValue" id="examineeValue" value="" />
                     <input type="hidden" name="id" value="${id }" >
+                    <input type="hidden" name="dimension_1_weight" id="dimension_1_weight" value=""> <!-- 自评 -->
+                    <input type="hidden" name="dimension_2_weight" id="dimension_2_weight" value=""> <!-- 上级 -->
+                    <input type="hidden" name="dimension_3_weight" id="dimension_3_weight" value=""> <!-- 同级 -->
+                    <input type="hidden" name="dimension_4_weight" id="dimension_4_weight" value=""> <!-- 下级 -->
                     <div class="surveyCollectMiddleContent">
                         <div style="padding: 25px 45px;overflow: auto;padding-top: 35px;">
                             <div style="border-bottom: 1px solid #DFDFDF;padding: 5px;color: #666565;">考核测评设计</div>
@@ -59,7 +50,7 @@
                                             <table class="ac-form-table">
                                                 <tr>
                                                     <td width="150" align="right"><span class="red-color">*&nbsp;</span>考核测评名称</td>
-                                                    <td class="ac-input-td"><input type="text" id="reviewName" name="name" value="${name }"  > </td>
+                                                    <td class="ac-input-td"><input type="text" id="reviewName" name="name" value="${name }"  /> </td>
                                                 </tr>
                                                 <tr>
                                                     <td width="150" align="right"><span class="red-color">*&nbsp;</span>考核表模板</td>
@@ -78,7 +69,7 @@
                                                         </select>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="ac-input-examinee">
                                                     <td width="150" align="right"><span class="red-color">*&nbsp;</span>评价关系</td>
                                                     <td class="ac-input-td">
                                                         <%--<input type="text" readonly value="${selectExaminee}" class="selectName" />--%>
@@ -93,6 +84,9 @@
                                                         </table>
                                                         <a href="javascript:;" id="selectExaminee">选择</a>
                                                     </td>
+                                                    <td class="ac-input-td"><input type="hidden" name="examineeValue" id="examineeValue" value="" /></td>
+                                                    <!-- 错误提示 -->
+                                                    <td class="ac-input-error" style="color: #c40000; display: none;">系统没有检测到相关用户</td>
                                                 </tr>
                                                 <%--<tr>--%>
                                                     <%--<td width="150" align="right"><span class="red-color">*&nbsp;</span>权重设置</td>--%>
@@ -120,7 +114,7 @@
                                     <tr>
                                         <td height="50">
                                             <c:if test='${msg==null}'>
-                                                <input type="button" value="确认发布" class="sbtn25 sbtn25_1 button_submit" style="margin-left: 125px;">
+                                                <input type="submit" value="确认发布" class="sbtn25 sbtn25_1 button_submit" style="margin-left: 125px;">
                                             </c:if>
                                             <c:if test='${msg!=null}'>
                                                 <a href="javascript:" onclick='alert("${msg}");' class="a_submit" style="margin-left: 125px;">确认发布</a>

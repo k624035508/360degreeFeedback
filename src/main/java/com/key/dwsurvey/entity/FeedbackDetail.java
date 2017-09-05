@@ -18,6 +18,15 @@ public class FeedbackDetail extends IdEntity{
     private String middleWeight;
     private String bottomWeight;
     private String feedbackNote;
+    private Integer paramScore;
+
+    public Integer getParamScore() {
+        return paramScore;
+    }
+
+    public void setParamScore(Integer paramScore) {
+        this.paramScore = paramScore;
+    }
 
     public String getDirId() {
         return dirId;

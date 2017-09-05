@@ -1,36 +1,7 @@
-//添加被考核者
-function addExaminee(userId, userName) {
-    var examineeValue = $("#examinee").val();
-    var selectName = $(".selectName").val();
-    if(examineeValue.indexOf(userId)==-1) {
-        $("#userSelectList").append("<tr><td>" + userName + "</td><td class='user-delete' data-select-id='" + userId + "'>&times;</td></tr>");
-        if (examineeValue == "" || examineeValue == null) {
-            $("#examinee").val(userId);
-            $(".selectName").val(userName);
-        } else {
-            $("#examinee").val(examineeValue + "," + userId);
-            $(".selectName").val(selectName + "," + userName);
-        }
-    }
-}
-
-//添加考核者
-function addInvestigate(userId, userName, dimensionValue){
-    var modalId = "dimensionModal_" + dimensionValue;
-    var $dimensionModal = $("#" + modalId);
-    var selectName= $(".selectDimensionTr").find("#investigate_name_"+ dimensionValue).val();
-    var investigate = $(".selectDimensionTr").find("#dimension_"+ dimensionValue +"_investigate").val();
-    if(investigate.indexOf(userId)==-1) {
-        $dimensionModal.find("#dimensionSelectList_" + dimensionValue).append("<tr><td>" + userName + "</td><td class='user-delete'>&times;</td></tr>");
-        if (investigate == null || investigate == "") {
-            $(".selectDimensionTr").find("#dimension_"+ dimensionValue +"_investigate").val(userId);
-            $(".selectDimensionTr").find("#investigate_name_" + dimensionValue).val(userName);
-        } else {
-            $(".selectDimensionTr").find("#dimension_"+ dimensionValue +"_investigate").val(investigate + "," + userId);
-            $(".selectDimensionTr").find("#investigate_name_" + dimensionValue).val(selectName + "," + userName);
-        }
-    }
-}
+jQuery.extend(jQuery.validator.messages, {
+    required: "考核表名称不能为空",
+    remote: "系统没有检测到相关用户"
+});
 
 $(function () {
     //考核人modal
@@ -40,7 +11,11 @@ $(function () {
     });
     //选择模板时清空数据
     $("select").bind("change",function(){
-        // alert(123);
+        $("#examineeValue").val("");
+        $(".examinee-table .examinee-tr").remove();
+        $("#top-textarea").val("")
+        $("#middle-textarea").val("");
+        $("#bottom-textarea").val("");
     });
     //被考核人modal
     $("a#selectExaminee").click(function () {
@@ -174,13 +149,32 @@ $(function () {
         $("#examineeValue").val(examineeValue);
     });
 
-    $(".button_submit").click(function(){
-        if($("#reviewName").val() == "" || $("#reviewName").val() == null){
-            alert("请填写考核测评名称");
-            return false;
+    //规则验证
+    $("#inputReviewForm").validate({
+        rules:{
+            examineeValue: {
+                remote: {
+                    url: "/review/design/feedback-review!checkExamineeUn.action",
+                    type: "post",
+                    data:{
+                        "examineeValue": function () {
+                            return $("input[name='examineeValue']").val();
+                        }
+                    }
+                }
+            },
+            name:{required:true}
+        },
+        errorPlacement: function (error, element) {
+            element.parent().append(error);
+        },
+        submitHandler:function (form) {
+            $("#dimension_1_weight").val($("option:selected").data()["ownWeight"]);
+            $("#dimension_2_weight").val($("option:selected").data()["topWeight"]);
+            $("#dimension_3_weight").val($("option:selected").data()["middleWeight"]);
+            $("#dimension_4_weight").val($("option:selected").data()["bottomWeight"]);
+            form.submit();
         }
-        $("#inputReviewForm").submit();
-    })
-
+    });
 });
 

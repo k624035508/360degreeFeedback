@@ -1001,8 +1001,10 @@ $(document).ready(function(){
             var topWeight=$("input[name='topWeight']").val();
             var middleWeight=$("input[name='middleWeight']").val();
             var bottomWeight=$("input[name='bottomWeight']").val();
+            var paramScore=$("input[name='paramScore']:checked").val();
 
-            data+="&ownWeight="+ownWeight+"&topWeight="+topWeight+"&middleWeight="+middleWeight+"&bottomWeight="+bottomWeight;
+
+            data+="&ownWeight="+ownWeight+"&topWeight="+topWeight+"&middleWeight="+middleWeight+"&bottomWeight="+bottomWeight+"&paramScore="+paramScore;
             //alert(data);
 
             $.ajax({

@@ -100,6 +100,16 @@ public class UserManagerImpl extends BaseServiceImpl<User, String> implements Us
 		}
 		return userDao.findFirst(criterions);
 	}
+
+	@Override
+	public User findNicknameUn(String id, String name) {
+		List<Criterion> criterions=new ArrayList<Criterion>();
+		criterions.add(Restrictions.eq("name", name));
+		if(id!=null && !"".equals(id)){
+			criterions.add(Restrictions.ne("id", id));
+		}
+		return userDao.findFirst(criterions);
+	}
 	
 	@Override
 	public User findEmailUn(String id, String email) {
