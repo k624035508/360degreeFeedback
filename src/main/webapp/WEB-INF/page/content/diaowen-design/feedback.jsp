@@ -657,6 +657,15 @@
                             <div class="p_DialogContentItem"><label for="topWeight">上级权重</label><input type="text" size="10" id="topWeight" name="topWeight" class="inputSytle_1" value="${feedback.feedbackDetail.topWeight}"></div>
                             <div class="p_DialogContentItem"><label for="middleWeight">同级权重</label><input type="text" size="10" id="middleWeight" name="middleWeight" class="inputSytle_1" value="${feedback.feedbackDetail.middleWeight}"></div>
                             <div class="p_DialogContentItem"><label for="bottomWeight">下级权重</label><input type="text" size="10" id="bottomWeight" name="bottomWeight" class="inputSytle_1" value="${feedback.feedbackDetail.bottomWeight}"></div>
+                            <div class="p_DialogContentItem" style="margin-top: 6px;">
+                                <span>评分分值</span>
+                                <input type="radio" name="paramScore" id="paramSxore1" value="5"
+                                    <c:if test="${feedback.feedbackDetail.paramScore eq 5}"> checked</c:if>
+                                /><label for="paramSxore1">5分</label>
+                                <input type="radio" name="paramScore" id="paramSxore2" value="10"
+                                        <c:if test="${feedback.feedbackDetail.paramScore eq 10}"> checked</c:if>
+                                /><label for="paramSxore2">10分</label>
+                            </div>
                         </div>
                     </div>
                 </div>

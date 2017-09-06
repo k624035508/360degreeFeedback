@@ -97,29 +97,33 @@ public class FeedbackAction extends ActionSupport {
         HttpServletRequest request = Struts2Utils.getRequest();
         HttpServletResponse response = Struts2Utils.getResponse();
         FeedbackReview feedbackReview = feedbackReviewManager.get(reviewId);
-        String answerOwnerId = request.getParameter("answerOwnerId");
-        if(answerOwnerId == null){
-
-        }
         //获取评价者对被评者的维度
         User user = accountManager.getCurUser();
-        ReviewDimension reviewDimension = reviewDimensionManager.findDetailsByAll(answerOwnerId, user.getId(), reviewId);
-        FeedbackAnswer entity = new FeedbackAnswer();
-        entity.setAnswerUser(user.getId());
-        entity.setOwnerId(answerOwnerId);
-        entity.setDimensionId(reviewDimension.getDimensionId());
-        Map<String, Map<String, Object>> quMaps = new HashMap<String, Map<String, Object>>();
-        Map<String, Object> feedbackMaps = WebUtils.getParametersStartingWith(request, "qu_" + QuType.DEGREEFEEDBACK + "_");
-        for(String key: feedbackMaps.keySet()){
-            String tag = feedbackMaps.get(key).toString();
-            Map<String, Object> map = WebUtils.getParametersStartingWith(request, tag);
-            feedbackMaps.put(key, map);
+        List<User> examineeList = new ArrayList<>();
+        List<ReviewDimension> reviewDimensionList = reviewDimensionManager.findByInvestigate(user.getId(), reviewId);
+        for(ReviewDimension reviewDimension: reviewDimensionList){
+            //被考核者
+            User examinee = userManager.get(reviewDimension.getExaminee());
+            examineeList.add(examinee);
         }
-        quMaps.put("feedbackMaps", feedbackMaps);
-        entity.setReviewId(reviewId);
-        feedbackAnswerManager.saveAnswer(entity, quMaps);
-        System.out.println(quMaps);
-        System.out.println(quMaps.toString());
+        for(User answerOwner: examineeList) {
+            ReviewDimension reviewDimension = reviewDimensionManager.findDetailsByAll(answerOwner.getId(), user.getId(), reviewId);
+            FeedbackAnswer entity = new FeedbackAnswer();
+            entity.setAnswerUser(user.getId());
+            entity.setOwnerId(answerOwner.getId());
+            entity.setDimensionId(reviewDimension.getDimensionId());
+            Map<String, Map<String, Object>> quMaps = new HashMap<String, Map<String, Object>>();
+            Map<String, Object> feedbackMaps = WebUtils.getParametersStartingWith(request, "qu_" + answerOwner.getId() + "_");
+            for (String key : feedbackMaps.keySet()) {
+                String tag = feedbackMaps.get(key).toString();
+                Map<String, Object> map = WebUtils.getParametersStartingWith(request, tag);
+                feedbackMaps.put(key, map);
+            }
+            quMaps.put("feedbackMaps", feedbackMaps);
+            entity.setReviewId(reviewId);
+            feedbackAnswerManager.saveAnswer(entity, quMaps);
+            System.out.println(quMaps);
+        }
         return RELOAD_ANSWER_SUCCESS;
     }
 

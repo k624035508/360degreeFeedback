@@ -21,7 +21,6 @@
     <input type="hidden" id="id" name="id" value="${review.id }">
     <form id="surveyForm" action="${ctx }/feedback!save.action" method="post" >
         <input type="hidden" id="reviewId" name="reviewId" value="${review.id }" />
-        <input type="hidden" id="dimensionId" name="dimensionId" value="${feedbackDimension.id }" />
         <div id="dw_body" style="padding-top:10px;">
             <div id="dw_body_content">
                 <div class="dwSurveyHeader">
@@ -31,92 +30,76 @@
                     <div id="dwAnswer">
                         <div class="answer-name"><span>评分人</span><input type="text" readonly value="${user.name}"></div>
                         <div class="answer-name"><span>部门</span><input type="text" readonly value="${user.department}"></div>
-                        <div class="answer-name">
-                                <span>选择待评分用户</span>
-                                <select name="answerOwnerId">
-                                    <c:forEach items="${examineeList}" var="userList">
-                                        <option value="${userList.id}">${userList.name}</option>
-                                    </c:forEach>
-                                </select>
-
-                        </div>
                     </div>
                 </div>
                 <div id="dwSurveyQuContent" style="min-height: 300px;">
                     <div id="dwSurveyQuContentBg">
                         <ul id="dwSurveyQuContentAppUl">
-                            <c:forEach items="${feedbackProject.questions}" var="en">
-                                <li class="li_surveyQuItemBody">
-                                    <div class="surveyQuItemBody">
-                                        <div class="initLine"></div>
-                                        <div class="quInputCase" style="display: none;">
-                                            <input type="hidden" name="quType" value="DEGREEFEEDBACK" >
-                                            <input type="hidden" name="quId" value="${en.id }">
-                                            <input type="hidden" name="orderById" value="${en.orderById }"/>
-                                        </div>
-                                        <div class="surveyQuItem">
-                                            <div class="surveyQuItemContent">
-                                                <div class="quCoItem">
-                                                    <table class="feedbackTable">
-                                                        <tr><th style="width:10%;">评估项目</th><th style="width:10%;">评分内容</th><th style="width:70%;">评估内容说明</th><th style="width:10%;">评价</th></tr>
-                                                        <c:forEach items="${en.degreeFeedbackItems}" var="item">
-                                                            <tr class="feedbackTableTr">
-                                                                <td class="feedbackTableEditTd">
-                                                                    <label class="editAble quCoOptionEdit">${item.name}</label>
-                                                                    <div class="quItemInputCase">
-                                                                        <input type="hidden" name="qu_${en.quType }_${item.id}" value="item_qu_${en.quType}_${item.id}_" />
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <ul class="quItemItemEditUl">
-                                                                        <c:forEach items="${item.itemList}" var="itemItem">
-                                                                            <li class="quItemItemEditLi">
-                                                                                <label class="editAble quItemItemEdit">${itemItem.name}</label>
-                                                                                <div class="quItemInputCase">
-                                                                                    <input type="hidden" name="quItemItemId" value="${itemItem.id}" />
-                                                                                    <input type="hidden" name="quItemItemSaveTag" value="1">
-                                                                                </div>
-                                                                            </li>
-                                                                        </c:forEach>
-                                                                    </ul>
-                                                                </td>
-                                                                <td>
-                                                                    <ul class="quItemItemEditUl">
-                                                                        <c:forEach items="${item.itemList}" var="itemItem">
-                                                                            <li class="quItemItemEditLi">
-                                                                                ${itemItem.description}
-                                                                            </li>
-                                                                        </c:forEach>
-                                                                    </ul>
-                                                                </td>
-                                                                <td>
-                                                                    <ul class="quItemItemEditUl">
-                                                                        <c:forEach items="${item.itemList}" var="itemItem">
-                                                                        <li class="quItemItemEditLi">
-                                                                            <select name="item_qu_${en.quType }_${item.id}_${itemItem.id }">
-                                                                                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
-                                                                            </select>
-                                                                        </li>
-                                                                        </c:forEach>
-                                                                    </ul>
-                                                                </td>
-                                                            </tr>
-                                                        </c:forEach>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <li class="li_surveyQuItemBody">
+                                <div class="surveyQuItemBody">
+                                    <div class="surveyQuDesc">
+                                        ${feedbackProject.feedbackDetail.feedbackNote}
                                     </div>
-                                </li>
-                            </c:forEach>
+                                    <c:forEach items="${feedbackProject.questions}" var="en">
+                                        <c:forEach items="${en.degreeFeedbackItems}" var="items" varStatus="key">
+                                            <c:forEach items="${examineeList}" var="userList2">
+                                                <input type="hidden" name="qu_${userList2.id}_${items.id}" value="item_qu_${userList2.id}_${items.id}_" />
+                                            </c:forEach>
+                                            <c:forEach items="${items.itemList}" var="itemItem" varStatus="keyItem">
+                                                <div class="surveyQuFeedbackItem">
+                                                    <div class="div_title_question_all">
+                                                        <div class="div_topic_question"><!--${key.index*fn:length(items.itemList)+keyItem.count}-->${keyItem.count}、</div>
+                                                        <div class="div_title_question">
+                                                            <div class="div_title_question_title">${itemItem.name}</div>
+                                                            <div class="div_title_question_description">${itemItem.description}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="div_table_radio_question">
+                                                        <table>
+                                                            <tr><th></th>
+                                                                <c:if test="${feedbackProject.feedbackDetail.paramScore eq 5}"><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></c:if>
+                                                                <c:if test="${feedbackProject.feedbackDetail.paramScore eq 10}"><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></c:if>
+                                                            </tr>
+                                                            <c:forEach items="${examineeList}" var="userList">
+                                                                <tr>
+                                                                    <td>${userList.name}</td>
+                                                                    <c:if test="${feedbackProject.feedbackDetail.paramScore eq 5}">
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="1"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="2"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="3"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="4"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="5"></td>
+                                                                    </c:if>
+                                                                    <c:if test="${feedbackProject.feedbackDetail.paramScore eq 10}">
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="1"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="2"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="3"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="4"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="5"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="6"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="7"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="8"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="9"></td>
+                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="10"></td>
+                                                                    </c:if>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
+                                        </c:forEach>
+                                    </c:forEach>
+                                </div>
+                            </li>
                             <li class="li_surveyQuItemBody">
                                 <div class="surveyQuItemBody">
                                     <div class="surveyQuItem">
                                         <input type="hidden" class="quType" value="submitSurveyBtn">
-                                        <div class="surveyQuItemContent" style="padding-top: 12px;height: 30px;min-height: 30px;">
+                                        <div class="surveyQuItemContent" style="padding-top: 20px; min-height: 30px;">
                                             <%--<a href="#" id="submitReview" class="sbtn24 sbtn24_0 submitSurvey" >提&nbsp;交</a>&nbsp;&nbsp;--%>
                                             <c:if test="${examineeList.size()!=0}">
-                                                <input type="submit" value="提交" />
+                                                <input type="submit" class="answerPost" value="提交" />
                                             </c:if>
                                                 <c:if test="${examineeList.size()==0}">
                                                     <input type="button" value="提交" onclick='alert("请选择待评分用户");' />

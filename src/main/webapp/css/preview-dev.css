@@ -1794,3 +1794,18 @@ table.quCoChenTable tr td label{
 	height: 30px;
 	text-align: center;
 }
+
+.surveyQuDesc{ color: #6A6A6A; font-size: 16px; line-height: 25px; margin-bottom: 22px; }
+.surveyQuFeedbackItem{ margin-bottom: 30px; }
+.div_title_question_all{ display: inline-block; font-size: 15px; color:#444444; font-weight: bold; line-height: 20px; }
+.div_topic_question{ display: inline-block; width: 30px; float: left; }
+.div_title_question{ display: inline-block; width: 800px; float: left; }
+.div_title_question_description{ margin-top: 7px; }
+.div_table_radio_question{ margin-top: 5px; margin-left: 30px;}
+.div_table_radio_question table tr th{ color: #333333; font-weight: normal; width: 60px; height: 30px; }
+.div_table_radio_question table tr td{ color: #333333; font-weight: bold; width: 60px; height: 30px; text-align: center;  }
+.div_table_radio_question table tr td input[type="radio"]{  width: 18px; height: 18px; background: white; }
+.answerPost{ border:1px solid #0492d6; background: #13a5ec; display: inline-block;
+	line-height: 30px; cursor:pointer; font-size: 16px; color:white; text-align: center;
+	border-radius: 5px; width: 80px; margin-left: 380px;
+}
