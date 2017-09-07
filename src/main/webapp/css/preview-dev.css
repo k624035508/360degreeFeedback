@@ -1807,5 +1807,9 @@ table.quCoChenTable tr td label{
 .div_table_radio_question table tr td input[type="radio"]{  width: 18px; height: 18px; background: white; }
 .answerPost{ border:1px solid #0492d6; background: #13a5ec; display: inline-block;
 	line-height: 30px; cursor:pointer; font-size: 16px; color:white; text-align: center;
-	border-radius: 5px; width: 80px; margin-left: 380px;
+	border-radius: 5px; width: 80px; margin-left: 250px;
+}
+.answerPostDraft{ border:1px solid #adadad; background: #fff; display: inline-block;
+	line-height: 30px; cursor:pointer; font-size: 16px; color:#333; text-align: center;
+	border-radius: 5px; width: 100px; margin-left: 50px;
 }

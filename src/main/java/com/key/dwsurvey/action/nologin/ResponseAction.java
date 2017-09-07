@@ -138,14 +138,6 @@ public class ResponseAction extends ActionSupport {
 			SurveyDetail surveyDetail = directory.getSurveyDetail();
 			int rule = surveyDetail.getRule();
 
-			//用户未登录先登录
-			if(accountManager.getCurUser()==null){
-				request.setAttribute("surveyName", "登陆后重试");
-				request.setAttribute("msg", "请先登录后再填写问卷");
-				request.setAttribute("nologin", true);
-				return RESPONSE_MSG;
-			}
-
 			// 如果是非发布状态
 			if (directory.getSurveyQuNum() <= 0
 					|| directory.getSurveyState() != 1) {

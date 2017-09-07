@@ -120,14 +120,14 @@
 							<div style="padding-top: 5px;">
 								<table class="emailInboxList contacts-table" width="100%" border="0" cellpadding="0" cellspacing="0">
 									<tr>
-										<th align="left" style="padding-left: 20px;">回答用户</th>
+										<th align="left" style="padding-left: 20px;">回答用户IP地址</th>
 										<th style="text-align:center;" >回答时间</th>
 										<th style="text-align: center;">回答的题数</th>
 										<th style="text-align: center;">操作</th>
 									</tr>
 									<c:forEach items="${page.result }" var="en">
 									<tr>
-										<td align="left" style="padding-left: 20px;text-align: left;" width="150">${en.user.name }</td>
+										<td align="left" style="padding-left: 20px;text-align: left;" width="150">${en.ipAddr }</td>
 										<td><fmt:formatDate value="${en.endAnDate }" pattern="yyyy.MM.dd HH:mm:ss" /></td>
 										<td>
 											<span style="color: #5D71A7;">${en.completeItemNum }</span>

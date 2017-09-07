@@ -94,6 +94,8 @@ public class SurveyAction extends ActionSupport{
 	//问卷的动态访问方式
 	public String answerSurvey() throws Exception {
 		HttpServletRequest request = Struts2Utils.getRequest();
+		SurveyDirectory surveyTemp = surveyDirectoryManager.getSurveyBySid(sid);
+		surveyId = surveyTemp.getId();
 		SurveyDirectory survey=surveyDirectoryManager.getSurvey(surveyId);
 		// 如果是非发布状态
 		if (survey.getSurveyQuNum() <= 0 || survey.getSurveyState() != 1) {

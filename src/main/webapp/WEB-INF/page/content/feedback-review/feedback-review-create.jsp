@@ -132,7 +132,7 @@
                                                 <h4 class="modal-title">用户选择器2</h4>
                                             </div>
                                             <div class="modal-body" style="height: 410px;">
-                                                <p><span style="color: red;">tip</span>:一行对应一个被考核人，其上级关系对应相关行,用户之间用"|"隔开</p>
+                                                <p><span style="color: red;">tip</span>:一行对应一个被考核人，其上级关系对应相关行,用户之间用"&"隔开</p>
                                                 <div class="div-set" style="margin-top: 20px;">
                                                 <div class="div-set-own" style="float: left; display: inline-block; width: 180px; margin-right: 20px;">
                                                     <p>被考核人</p>

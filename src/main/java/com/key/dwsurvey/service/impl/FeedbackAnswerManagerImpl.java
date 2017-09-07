@@ -59,6 +59,7 @@ public class FeedbackAnswerManagerImpl extends BaseServiceImpl<FeedbackAnswer, S
         Page<FeedbackAnswer> page = new Page<FeedbackAnswer>();
         List<Criterion> criterionList = new ArrayList<>();
         criterionList.add(Restrictions.eq("reviewId", reviewId));
+        criterionList.add(Restrictions.eq("answerStatus", 1));
         page = feedbackAnswerDao.findPageList(page, criterionList);
         return page.getResult();
     }
@@ -78,6 +79,7 @@ public class FeedbackAnswerManagerImpl extends BaseServiceImpl<FeedbackAnswer, S
         criterionList.add(Restrictions.eq("reviewId", reviewId));
         criterionList.add(Restrictions.eq("answerUser", answerUser));
         criterionList.add(Restrictions.eq("ownerId", ownerId));
+        criterionList.add(Restrictions.eq("answerStatus", 1));
         page = feedbackAnswerDao.findPageList(page, criterionList);
         return page.getResult();
     }

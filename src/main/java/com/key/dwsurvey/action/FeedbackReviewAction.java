@@ -77,7 +77,7 @@ public class FeedbackReviewAction extends CrudActionSupport<FeedbackReview, Stri
         request.getSession().setAttribute("feedbackDemo", degreeFeedbackProjectList);
         //根据examinee获取对应investigate
         if(entity.getExaminee() != null && entity.getExaminee() != "") {
-            String[] selectExaminees = entity.getExaminee().split("\\|"); //被评人
+            String[] selectExaminees = entity.getExaminee().split("&"); //被评人
             String[] selectTop = new String[selectExaminees.length];  //上评
             String[] selectMiddle = new String[selectExaminees.length]; //同级
             String[] selectBottom = new String[selectExaminees.length]; //下级
@@ -89,21 +89,21 @@ public class FeedbackReviewAction extends CrudActionSupport<FeedbackReview, Stri
                 selectExaminees[k] = selectExaminee.getName();
                 List<ReviewDimension> reviewDimensionList = reviewDimensionManager.findDetailsByOther(id, selectExaminee.getId());
                 for(ReviewDimension reviewDimension: reviewDimensionList) {
-                    String[] selectInvestigates = reviewDimension.getInvestigate().split("\\|");
+                    String[] selectInvestigates = reviewDimension.getInvestigate().split("&");
                     for (int p = 0; p < selectInvestigates.length; p++) {
                         selectInvestigates[p] = userManager.get(selectInvestigates[p]).getName();
                     }
                     switch (reviewDimension.getDimensionId()){
                         case "2":  //上级
-                            selectTop[k] = String.join("|", selectInvestigates);
+                            selectTop[k] = String.join("&", selectInvestigates);
                             reviewUser.setInvestigateTop(selectTop[k]);
                             break;
                         case "3": // 同级
-                            selectMiddle[k] = String.join("|", selectInvestigates);
+                            selectMiddle[k] = String.join("&", selectInvestigates);
                             reviewUser.setInvestigateMiddle(selectMiddle[k]);
                             break;
                         case "4":  //下级
-                            selectBottom[k] = String.join("|", selectInvestigates);
+                            selectBottom[k] = String.join("&", selectInvestigates);
                             reviewUser.setInvestigateBottom(selectBottom[k]);
                             break;
                     }
@@ -166,7 +166,7 @@ public class FeedbackReviewAction extends CrudActionSupport<FeedbackReview, Stri
                 reviewDimensionList.add(ownDimension);
             }
             for (String keyItem : userMapItem.keySet()) {
-                String[] userNames = keyItem.split("\\|");
+                String[] userNames = keyItem.split("&");
                 String[] userIds = new String[userNames.length];
                 for(int k = 0; k < userNames.length; k++){
                     String userId = userManager.findByUserName(userNames[k]).getId();
@@ -177,7 +177,7 @@ public class FeedbackReviewAction extends CrudActionSupport<FeedbackReview, Stri
                 String weight = request.getParameter("dimension_" + keyDimension + "_weight");
                 reviewDimension.setDimensionId(keyDimension);
                 reviewDimension.setWeight(weight);
-                reviewDimension.setInvestigate(String.join("|", userIds));
+                reviewDimension.setInvestigate(String.join("&", userIds));
                 reviewDimension.setExaminee(examineeUser.getId());
                 reviewDimensionList.add(reviewDimension);
             }
@@ -186,7 +186,7 @@ public class FeedbackReviewAction extends CrudActionSupport<FeedbackReview, Stri
         for(int p = 0; p<reviewExamineeList.size(); p++){
             reviewExamineeString[p] = reviewExamineeList.get(p);
         }
-        feedbackReview.setExaminee(String.join("|", reviewExamineeString));
+        feedbackReview.setExaminee(String.join("&", reviewExamineeString));
         feedbackReview.setReviewDimensionList(reviewDimensionList);
         //删除之前保存的记录
         List<ReviewDimension> deleteList = reviewDimensionManager.findDetails(id);
@@ -212,7 +212,7 @@ public class FeedbackReviewAction extends CrudActionSupport<FeedbackReview, Stri
                 break;
             }
             for (String keyItem : userMapItem.keySet()) {
-                String[] userNames = keyItem.split("\\|");
+                String[] userNames = keyItem.split("&");
                 for(int k = 0; k < userNames.length; k++){
                     User investigateUser = userManager.findNicknameUn(null, userNames[k]);
                     if (investigateUser == null){

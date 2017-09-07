@@ -27,6 +27,8 @@ public class FeedbackAnswer extends IdEntity {
     private String dimensionId;
     //回答时间
     private Date answerDate;
+    //回答类型  0:草稿  1:直接回答
+    private Integer answerStatus;
 
     public String getReviewId() {
         return reviewId;
@@ -63,6 +65,14 @@ public class FeedbackAnswer extends IdEntity {
     public String getDimensionId() { return dimensionId; }
 
     public void setDimensionId(String dimensionId) { this.dimensionId = dimensionId; }
+
+    public Integer getAnswerStatus() {
+        return answerStatus;
+    }
+
+    public void setAnswerStatus(Integer answerStatus) {
+        this.answerStatus = answerStatus;
+    }
 
     private List<AnFeedbackItem> anFeedbackItemList;
 

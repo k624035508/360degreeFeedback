@@ -10,16 +10,16 @@
     <link href="${ctx }/js/plugs/uploadify-v3.1/uploadify.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="${ctx }/js/plugs/uploadify-v3.1/jquery.uploadify-3.1.js"></script>
     <script type="text/javascript" src="${ctx }/js/dw/uploadify.js"></script>
-
     <link href="${ctx }/css/preview-dev.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="${ctx }/js/plugs/colpick-jQuery/css/colpick.css" type="text/css"/>
-
     <link href="${ctx}/js/plugs/validate/jquery.validate.css" type="text/css" rel="stylesheet" />
+    <script src="${ctx}/js/plugs/validate/jquery.validate.js" type="text/javascript"></script>
+    <script type="text/javascript" src="${ctx }/js/dw/dw-answer-feedback.js"></script>
 </head>
 <body>
 <div id="wrap">
     <input type="hidden" id="id" name="id" value="${review.id }">
-    <form id="surveyForm" action="${ctx }/feedback!save.action" method="post" >
+    <form id="feedbackAnswerForm" action="${ctx }/feedback!save.action" method="post" >
         <input type="hidden" id="reviewId" name="reviewId" value="${review.id }" />
         <div id="dw_body" style="padding-top:10px;">
             <div id="dw_body_content">
@@ -29,7 +29,7 @@
                     </div>
                     <div id="dwAnswer">
                         <div class="answer-name"><span>评分人</span><input type="text" readonly value="${user.name}"></div>
-                        <div class="answer-name"><span>部门</span><input type="text" readonly value="${user.department}"></div>
+                        <div class="answer-name"><span>部门</span><input type="text" readonly value="${user.departmentName}"></div>
                     </div>
                 </div>
                 <div id="dwSurveyQuContent" style="min-height: 300px;">
@@ -61,27 +61,16 @@
                                                                 <c:if test="${feedbackProject.feedbackDetail.paramScore eq 10}"><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></c:if>
                                                             </tr>
                                                             <c:forEach items="${examineeList}" var="userList">
-                                                                <tr>
+                                                                <tr class="feedbackOptionTr">
                                                                     <td>${userList.name}</td>
-                                                                    <c:if test="${feedbackProject.feedbackDetail.paramScore eq 5}">
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="1"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="2"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="3"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="4"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="5"></td>
-                                                                    </c:if>
-                                                                    <c:if test="${feedbackProject.feedbackDetail.paramScore eq 10}">
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="1"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="2"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="3"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="4"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="5"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="6"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="7"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="8"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="9"></td>
-                                                                        <td><input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="10"></td>
-                                                                    </c:if>
+                                                                    <c:forEach begin="1" end="${feedbackProject.feedbackDetail.paramScore}" varStatus="countNum">
+                                                                        <td>
+                                                                            <input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="${countNum.count}"
+                                                                                    <%--<c:if test='${"itemValue_" + userList.id + "_" + itemItem.id} eq'></c:if>--%>
+                                                                            />
+                                                                        </td>
+                                                                        <%--${itemValue_8ab29f505d9bd4b1015d9bd940060000_4028b8815e4f5e6c015e4f68fafe000d}--%>
+                                                                    </c:forEach>
                                                                 </tr>
                                                             </c:forEach>
                                                         </table>
@@ -99,7 +88,9 @@
                                         <div class="surveyQuItemContent" style="padding-top: 20px; min-height: 30px;">
                                             <%--<a href="#" id="submitReview" class="sbtn24 sbtn24_0 submitSurvey" >提&nbsp;交</a>&nbsp;&nbsp;--%>
                                             <c:if test="${examineeList.size()!=0}">
-                                                <input type="submit" class="answerPost" value="提交" />
+                                                <input type="button" class="answerPost" value="提交" />
+                                                <input type="button" class="answerPostDraft" value="保存草稿" />
+                                                <input type="hidden" name="answerStatus" class="answerStatus" value="">
                                             </c:if>
                                                 <c:if test="${examineeList.size()==0}">
                                                     <input type="button" value="提交" onclick='alert("请选择待评分用户");' />

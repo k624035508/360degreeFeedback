@@ -84,11 +84,18 @@ public class FeedbackAction extends ActionSupport {
                 examineeList.add(examinee);
             }
         }
-
         request.setAttribute("examineeList", examineeList);
-        Department userDepart = departmentManager.get(user.getDepartment());
-        user.setDepartment(userDepart.getName());
         request.setAttribute("user", user);
+        //获取草稿数据
+        List<FeedbackAnswer> feedbackAnswerList = feedbackAnswerManager.findAnswerByAnswerUser(reviewId, user.getId());
+        if(feedbackAnswerList.size()!=0) {
+            for (FeedbackAnswer feedbackAnswer : feedbackAnswerList) {
+                List<AnFeedbackItem> anFeedbackItemList = anFeedbackItemManager.findAnswerDetail(feedbackAnswer.getId());
+                for(AnFeedbackItem anFeedbackItem: anFeedbackItemList){
+                    request.setAttribute("itemValue_" + feedbackAnswer.getOwnerId() + "_" + anFeedbackItem.getFeedbackRowId(), anFeedbackItem.getAnswerScore());
+                }
+            }
+        }
         return ANSWERFEEDBACK;
     }
 
@@ -97,6 +104,7 @@ public class FeedbackAction extends ActionSupport {
         HttpServletRequest request = Struts2Utils.getRequest();
         HttpServletResponse response = Struts2Utils.getResponse();
         FeedbackReview feedbackReview = feedbackReviewManager.get(reviewId);
+        String answerStatus = request.getParameter("answerStatus");
         //获取评价者对被评者的维度
         User user = accountManager.getCurUser();
         List<User> examineeList = new ArrayList<>();
@@ -112,6 +120,7 @@ public class FeedbackAction extends ActionSupport {
             entity.setAnswerUser(user.getId());
             entity.setOwnerId(answerOwner.getId());
             entity.setDimensionId(reviewDimension.getDimensionId());
+            entity.setAnswerStatus(Integer.parseInt(answerStatus));
             Map<String, Map<String, Object>> quMaps = new HashMap<String, Map<String, Object>>();
             Map<String, Object> feedbackMaps = WebUtils.getParametersStartingWith(request, "qu_" + answerOwner.getId() + "_");
             for (String key : feedbackMaps.keySet()) {

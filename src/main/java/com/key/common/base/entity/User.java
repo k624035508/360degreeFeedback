@@ -255,7 +255,17 @@ public class User extends IdEntity {
 	public void setFindPwdUrl(String findPwdUrl) {
 		this.findPwdUrl = findPwdUrl;
 	}
-	
+
+	//角色名称
+	private String departmentName;
+	@Formula("(select d.name from t_department d where d.id = department)")
+	public String getDepartmentName() {
+		return departmentName;
+	}
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
 	//权限角色名称
 	private String roleName;
 	@Formula("(select o.name from t_roles o where o.id = role)")

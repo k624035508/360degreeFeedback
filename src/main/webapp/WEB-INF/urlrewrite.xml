@@ -19,7 +19,8 @@
        </rule>
         <rule>
               <from>/wenjuan/(.*).html</from>
-              <to>/response.action?sid=$1</to>
+              <!--<to>/response.action?sid=$1</to>-->
+              <to>/survey!answerSurvey.action?sid=$1</to>
        </rule>
    <!--
     <rule>
