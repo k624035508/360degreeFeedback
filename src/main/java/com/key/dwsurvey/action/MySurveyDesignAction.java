@@ -103,11 +103,11 @@ public class MySurveyDesignAction extends ActionSupport{
 		try{
 			//保存静态HTML路径
 			//buildSurveyHtml();
-			String url="/survey!answerSurvey.action?surveyId="+surveyId;
-			String filePath="WEB-INF/wjHtml/"+dateFormat.format(createDate);
-			String fileName=surveyId+".html";
-			new JspToHtml().postJspToHtml(url, filePath, fileName);
-			survey.setHtmlPath(filePath+fileName);
+//			String url="/survey!answerSurvey.action?surveyId="+surveyId;
+//			String filePath="WEB-INF/wjHtml/"+dateFormat.format(createDate);
+//			String fileName=surveyId+".html";
+//			new JspToHtml().postJspToHtml(url, filePath, fileName);
+//			survey.setHtmlPath(filePath+fileName);
 			//设置问卷状态为发布状态
 			survey.setSurveyState(1);
 			surveyDirectoryManager.save(survey);

@@ -34,7 +34,7 @@ public class SurveyDirectory extends IdEntity{
 	private String surveyDetailId;
 	//创建时间
 	private Date createDate=new Date();
-	//问卷状态  0默认设计状态  1执行中 2结束 
+	//问卷状态  0默认设计状态  1执行中 2结束
 	private Integer surveyState=0;
 	//问卷下面有多少题目数 
 	private Integer surveyQuNum=0;
