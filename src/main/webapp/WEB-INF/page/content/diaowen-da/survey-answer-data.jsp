@@ -76,17 +76,17 @@
 					<div class="surveyCollectTitleDiv">
 						<span class="surveyCollectTitle">${survey.surveyName }</span>
 						<div class="scmTabRight" >
-							<c:choose>
-								<c:when test="${survey.surveyState eq 0 }">
-									<a href="" class="surveyStateBtn sbtn25 sbtn25_2" style="color: #599fd1;">开始收集</a>
-								</c:when>
-								<c:when test="${survey.surveyState eq 1 }">
-									<a href="" class="surveyStateBtn sbtn25 sbtn25_2">停止收集</a>
-								</c:when>
-								<c:when test="${survey.surveyState eq 2 }">
-									<a href="" class="surveyStateBtn sbtn25 sbtn25_2">重新打开收集</a>
-								</c:when>
-							</c:choose>
+							<%--<c:choose>--%>
+								<%--<c:when test="${survey.surveyState eq 0 }">--%>
+									<%--<a href="" class="surveyStateBtn sbtn25 sbtn25_2" style="color: #599fd1;">开始收集</a>--%>
+								<%--</c:when>--%>
+								<%--<c:when test="${survey.surveyState eq 1 }">--%>
+									<%--<a href="" class="surveyStateBtn sbtn25 sbtn25_2">停止收集</a>--%>
+								<%--</c:when>--%>
+								<%--<c:when test="${survey.surveyState eq 2 }">--%>
+									<%--<a href="" class="surveyStateBtn sbtn25 sbtn25_2">重新打开收集</a>--%>
+								<%--</c:when>--%>
+							<%--</c:choose>--%>
 							
 						</div>
 					</div>

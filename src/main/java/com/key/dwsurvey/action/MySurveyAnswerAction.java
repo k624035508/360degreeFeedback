@@ -59,10 +59,6 @@ public class MySurveyAnswerAction extends ActionSupport{
     		if(survey!=null){
     			page=surveyAnswerManager.answerPage(page, surveyId);
 				List<SurveyAnswer> list = page.getResult();
-				for(SurveyAnswer surveyAnswer: list){
-					User userAnswer = accountManager.getUser(surveyAnswer.getUserId());
-					surveyAnswer.setUser(userAnswer);
-				}
 				page.setResult(list);
     			request.setAttribute("survey", survey);
     		}
