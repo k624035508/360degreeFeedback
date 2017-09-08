@@ -332,7 +332,7 @@
         var titleValue=$(this).parents("tr").find(".titleTag").text();
 
         $("body").append("<div id=\"myDialogRoot\"><div class='dialogMessage' style='padding-top:40px;margin-left:20px;padding-bottom:0px;'>"+
-            "<div>测评标题：<input id='surTitleTemp' type='text' style='padding:5px;width:320px;color:rgb(14, 136, 158);' value=''></div></div></div>");
+            "<div>测评模板标题：<input id='surTitleTemp' type='text' style='padding:5px;width:320px;color:rgb(14, 136, 158);' value=''></div></div></div>");
 
         var myDialog=$( "#myDialogRoot" ).dialog({
             width:500,

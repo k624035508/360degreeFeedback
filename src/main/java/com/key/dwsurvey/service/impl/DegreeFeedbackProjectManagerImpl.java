@@ -92,11 +92,13 @@ public class DegreeFeedbackProjectManagerImpl extends BaseServiceImpl<DegreeFeed
             userId = d.getUserId();
         }
         if(userId!=null && (userId.equals(user.getId()) || user.getId().equals("1"))){
+            d.setDescription("非常感谢您的参与！如有涉及个人信息，我们将严格保密。");
             degreeFeedbackProjectDao.save(d);
             FeedbackDetail feedbackDetailTemp = d.getFeedbackDetail();
             FeedbackDetail feedbackDetail = feedbackDetailManager.getByFeedbackId(id);
             if(feedbackDetail != null){
                 if(feedbackDetailTemp != null){
+                    feedbackDetail.setFeedbackNote(feedbackDetailTemp.getFeedbackNote());
                     feedbackDetail.setOwnWeight(feedbackDetailTemp.getOwnWeight());
                     feedbackDetail.setTopWeight(feedbackDetailTemp.getTopWeight());
                     feedbackDetail.setMiddleWeight(feedbackDetailTemp.getMiddleWeight());
@@ -112,7 +114,7 @@ public class DegreeFeedbackProjectManagerImpl extends BaseServiceImpl<DegreeFeed
                 feedbackDetail.setBottomWeight("0");
                 feedbackDetail.setParamScore(5);
             }
-            feedbackDetail.setDirId(id);
+            feedbackDetail.setDirId(d.getId());
             feedbackDetailManager.save(feedbackDetail);
         }
     }
