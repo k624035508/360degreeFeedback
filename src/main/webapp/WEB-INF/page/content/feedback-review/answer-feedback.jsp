@@ -66,10 +66,11 @@
                                                                     <c:forEach begin="1" end="${feedbackProject.feedbackDetail.paramScore}" varStatus="countNum">
                                                                         <td>
                                                                             <input type="radio" name="item_qu_${userList.id}_${items.id}_${itemItem.id}" value="${countNum.count}"
-                                                                                    <%--<c:if test="${itemValue_8ab29f505d9bd4b1015d9bd940060000_4028b8815e4f5e6c015e4f68fafe000d eq countNum.count}">checked</c:if>--%>
+                                                                                    <c:forEach items="${tempScoreList}" var="tempScore">
+                                                                                        <c:if test="${tempScore.userId eq userList.id && tempScore.itemItemId eq itemItem.id && tempScore.answerScore eq countNum.count}">checked</c:if>
+                                                                                    </c:forEach>
                                                                             />
                                                                         </td>
-                                                                        <%--${itemValue_8ab29f505d9bd4b1015d9bd940060000_4028b8815e4f5e6c015e4f68fafe000d}--%>
                                                                     </c:forEach>
                                                                 </tr>
                                                             </c:forEach>

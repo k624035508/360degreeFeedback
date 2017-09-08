@@ -81,7 +81,7 @@ public class FeedbackStatisticsAction extends ActionSupport {
         List<TempScore> tempScoreList = new ArrayList<>();
         FeedbackReview feedbackReview = feedbackReviewManager.get(reviewId);
         List<User> userList = new ArrayList<>();
-        String[] userIds = feedbackReview.getExaminee().split("\\|");
+        String[] userIds = feedbackReview.getExaminee().split("&");
         for(String userId: userIds){
             userList.add(userManager.get(userId));
         }

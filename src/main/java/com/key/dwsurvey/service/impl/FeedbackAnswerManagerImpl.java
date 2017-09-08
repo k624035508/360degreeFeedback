@@ -51,7 +51,28 @@ public class FeedbackAnswerManagerImpl extends BaseServiceImpl<FeedbackAnswer, S
 
     @Override
     public void saveAnswer(FeedbackAnswer feedbackAnswer, Map<String, Map<String, Object>> quMaps){
+        //删除已有的问答
+        List<FeedbackAnswer> feedbackAnswerHaveList = findHaveReviewUserDraft(feedbackAnswer.getReviewId(), feedbackAnswer.getAnswerUser(), feedbackAnswer.getOwnerId());
+        if(feedbackAnswerHaveList.size()!=0){
+            FeedbackAnswer feedbackAnswerHave = feedbackAnswerHaveList.get(0);
+            List<AnFeedbackItem> anFeedbackItemList = anFeedbackItemManager.findAnswerDetail(feedbackAnswerHave.getId());
+            for(AnFeedbackItem anFeedbackItem: anFeedbackItemList){
+                anFeedbackItemManager.delete(anFeedbackItem);
+            }
+            delete(feedbackAnswerHave.getId());
+        }
         feedbackAnswerDao.saveAnswer(feedbackAnswer, quMaps);
+    }
+
+    public List<FeedbackAnswer> findHaveReviewUserDraft(String reviewId, String answerUser, String ownerId){
+        Page<FeedbackAnswer> page = new Page<FeedbackAnswer>();
+        List<Criterion> criterionList = new ArrayList<>();
+        criterionList.add(Restrictions.eq("reviewId", reviewId));
+        criterionList.add(Restrictions.eq("answerUser", answerUser));
+        criterionList.add(Restrictions.eq("ownerId", ownerId));
+        criterionList.add(Restrictions.eq("answerStatus", 0));
+        page = feedbackAnswerDao.findPageList(page, criterionList);
+        return page.getResult();
     }
 
     @Override

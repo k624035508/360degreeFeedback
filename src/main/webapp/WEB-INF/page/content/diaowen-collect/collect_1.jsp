@@ -82,7 +82,7 @@
 					<div class="surveyCollectInfoDiv">
 						<span class="surveyCollectInfoLeft">
 						状态：<span class="collectInfoSpan surveyStateText">${survey.surveyState eq 0 ? '设计中':survey.surveyState eq 1?'收集中':survey.surveyState eq 2?'收集完成':'' }</span>&nbsp;&nbsp;&nbsp;&nbsp;
-						参加人数：<span class="collectInfoSpan">${survey.answerNum }</span>
+						已收集问卷数：<span class="collectInfoSpan">${survey.answerNum }</span>
 						</span>
 						<span class="surveyCollectInfoRight">
 						发布时间：<span class="collectInfoSpan"><fmt:formatDate value="${survey.createDate }" pattern="yyyy年MM月dd日 HH时mm分" /> </span>

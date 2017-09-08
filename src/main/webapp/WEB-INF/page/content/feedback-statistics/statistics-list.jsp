@@ -110,7 +110,7 @@
                                                             <%--<td align="left">${en.status ne 0 ? '可用':'不可用' }</td>--%>
                                                         <td align="center">收集中</td>
                                                         <td align="center">
-                                                            <a class="btn btn-default" href="${ctx }/statistics/feedback-statistics!viewStatistics.action?reviewId=${en.id}" title="查看报告"data-toggle="tooltip" data-placement="top" ><i class="fa fa-pencil-square-o"></i></a>
+                                                            <a class="btn btn-default" target="_blank" href="${ctx }/statistics/feedback-statistics!viewStatistics.action?reviewId=${en.id}" title="查看报告"data-toggle="tooltip" data-placement="top" ><i class="fa fa-pencil-square-o"></i></a>
                                                         </td>
                                                     </tr>
                                                 </c:forEach>

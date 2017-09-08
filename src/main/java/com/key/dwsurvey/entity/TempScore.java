@@ -14,6 +14,7 @@ public class TempScore extends IdEntity {
     private Float avgScores = 0f;
     private String itemItemId;
     private String weight;
+    private String answerScore;
 
     public String getUserId() { return userId; }
 
@@ -49,5 +50,13 @@ public class TempScore extends IdEntity {
 
     public void setWeight(String weight) {
         this.weight = weight;
+    }
+
+    public String getAnswerScore() {
+        return answerScore;
+    }
+
+    public void setAnswerScore(String answerScore) {
+        this.answerScore = answerScore;
     }
 }

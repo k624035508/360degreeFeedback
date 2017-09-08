@@ -139,7 +139,7 @@ button {
 											  <a class="btn btn-default" href="${ctx }/design/my-survey-design.action?surveyId=${en.id}" title="设计"data-toggle="tooltip" data-placement="top" ><i class="fa fa-pencil-square-o"></i></a>
 											  <a class="btn btn-default" href="${ctx }/design/my-collect.action?surveyId=${en.id}" title="收集答卷" data-toggle="tooltip" data-placement="top" ><i class="fa fa-comments-o"></i></a>
 											  <a class="btn btn-default" href="${ctx }/da/survey-report!defaultReport.action?surveyId=${en.id}" title="分析报告" data-toggle="tooltip" data-placement="top" ><i class="fa fa-line-chart"></i></a>
-											  <a class="btn btn-default copySurvey" href="#${en.id}" title="复制一份" data-toggle="tooltip" data-placement="top" ><i class="fa fa-files-o"></i></a>
+											  <%--<a class="btn btn-default copySurvey" href="#${en.id}" title="复制一份" data-toggle="tooltip" data-placement="top" ><i class="fa fa-files-o"></i></a>--%>
 											  <a class="btn btn-default deleteSurvey" href="${ctx}/design/my-survey!delete.action?id=${en.id}" title="删除问卷" data-toggle="tooltip" data-placement="top" ><i class="fa fa-trash-o fa-fw"></i></a>
 											</div>&nbsp;
 											<div class="btn-group" style="display: none;">

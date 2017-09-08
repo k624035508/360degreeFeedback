@@ -76,6 +76,7 @@ public class FeedbackAction extends ActionSupport {
         request.setAttribute("feedbackProject", degreeFeedbackProject);
         User user = accountManager.getCurUser();
         List<User> examineeList = new ArrayList<>();
+        List<TempScore> tempScoreList = new ArrayList<>();
         List<ReviewDimension> reviewDimensionList = reviewDimensionManager.findByInvestigate(user.getId(), reviewId);
         for(ReviewDimension reviewDimension: reviewDimensionList){
             //被考核者
@@ -92,10 +93,15 @@ public class FeedbackAction extends ActionSupport {
             for (FeedbackAnswer feedbackAnswer : feedbackAnswerList) {
                 List<AnFeedbackItem> anFeedbackItemList = anFeedbackItemManager.findAnswerDetail(feedbackAnswer.getId());
                 for(AnFeedbackItem anFeedbackItem: anFeedbackItemList){
-                    request.setAttribute("itemValue_" + feedbackAnswer.getOwnerId() + "_" + anFeedbackItem.getFeedbackRowId(), anFeedbackItem.getAnswerScore());
+                    TempScore tempScore = new TempScore();
+                    tempScore.setUserId(feedbackAnswer.getOwnerId());
+                    tempScore.setItemItemId(anFeedbackItem.getFeedbackRowId());
+                    tempScore.setAnswerScore(anFeedbackItem.getAnswerScore());
+                    tempScoreList.add(tempScore);
                 }
             }
         }
+        request.setAttribute("tempScoreList", tempScoreList);
         return ANSWERFEEDBACK;
     }
 
