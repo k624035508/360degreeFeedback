@@ -956,11 +956,11 @@
 				<span class="dwToolbar_icon" title="问卷设置"></span>
 				</a>
 			</li>
-			<li id="surveyStyleEditToolbar">
-				<a href="${ctx }/design/my-survey-design!previewDev.action?surveyId=${param['surveyId']}" >
-				<span class="dwToolbar_icon" title="样式编辑"></span>
-				</a>
-			</li>
+			<%--<li id="surveyStyleEditToolbar">--%>
+				<%--<a href="${ctx }/design/my-survey-design!previewDev.action?surveyId=${param['surveyId']}" >--%>
+				<%--<span class="dwToolbar_icon" title="样式编辑"></span>--%>
+				<%--</a>--%>
+			<%--</li>--%>
 			<%-- <li id="previewToolbar">
 				<a href="${ctx }/design/my-survey-design!previewDev.action?surveyId=${param['surveyId']}" >
 				<span class="dwToolbar_icon" title="预览"></span>
@@ -3309,9 +3309,9 @@
 						<div class="p_DialogContentRoot">
 								<div class="p_DialogContentItem"><label><input type="checkbox" name="effective" value="4"> 每台电脑或手机只能答一次</label></div>
 								<div class="p_DialogContentItem"><label><input type="checkbox" name="effectiveIp" value="1"> 每个IP只能答一次</label></div>
-								<div class="p_DialogContentItem"><label><input type="checkbox" name="rule" value="3"> 启用访问密码</label>
-								&nbsp;&nbsp;&nbsp;设置密码：<input type="text" size="10"  name="ruleCode" class="inputSytle_1">
-								</div>
+								<%--<div class="p_DialogContentItem"><label><input type="checkbox" name="rule" value="3"> 启用访问密码</label>--%>
+								<%--&nbsp;&nbsp;&nbsp;设置密码：<input type="text" size="10"  name="ruleCode" class="inputSytle_1">--%>
+								<%--</div>--%>
 								<div class="p_DialogContentItem"><label><input type="checkbox" name="refresh" value="1"> 有重复回答启用验证码</label></div>
 								<div class="p_DialogContentItem" style="display: none;"><label><input type="checkbox" name="mailOnly" value="1"> 只有邮件邀请唯一链接的受访者可回答</label></div>
 						</div>
@@ -3327,7 +3327,6 @@
 					<div class="p_DialogContent">
 						<div class="p_DialogContentTitle">答完后</div>
 						<div class="p_DialogContentRoot">
-								<div class="p_DialogContentItem"><label><input type="checkbox" name="showShareSurvey" value="1"> 显示分享按钮，分享答题链接到更多社交网站</label></div>
 								<div class="p_DialogContentItem"><label><input type="checkbox" name="showAnswerDa" value="1"> 允许受访人答完问卷后查看结果</label></div>
 						</div>
 					</div>
@@ -3399,8 +3398,7 @@
 <div class="dw_foot" style="padding-bottom: 30px;">
 	<div class="footer-copyright" style="color: gray;padding-top: 0px;font-size: 16px;">
 		Powered by <a href="http://www.dwsurvey.net" target="_blank" style="text-decoration: none;color: gray;">DWSurvey3.0</a>&nbsp;&nbsp;&nbsp;
-		Copyright © 2012-2017
-		<a href="http://www.diaowen.net" target="_blank" style="text-decoration: none;color: rgb(53, 117, 136);">调问网</a>
+		Copyright © 2012-2017 keda
 	</div>
 </div>
 </div>

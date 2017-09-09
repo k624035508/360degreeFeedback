@@ -255,7 +255,6 @@ body{
 	color: white;
 	/* overflow: auto; */
 	height: 65px;
-	height: 71px;
 	margin: 0px auto;
 	/* border-bottom: 1px solid #497289; */
 }
@@ -267,7 +266,7 @@ body{
 	float: left;
 }
 .header_logo{
-	padding-top: 12px;
+	padding-top: 16px;
 }
 .header_menu{
 	padding-left: 46px;
@@ -283,9 +282,7 @@ body{
 .header_menu a{
 	text-decoration: none;
 	font-family: "微软雅黑";
-	padding: 5px 30px;
-	padding-top: 26px;
-	padding-bottom:20px;
+	padding: 20px 30px;
 	margin: 0px;
 	font-size: 18px;
 	letter-spacing: 2px;
@@ -307,7 +304,7 @@ body{
 }
 
 .header_user{
-	padding-top: 18px;
+	padding-top: 17px;
 }
 .header_user a{
 	color: #999999;
@@ -319,8 +316,7 @@ body{
 	letter-spacing: 2px;
 }
 .header_user a:hover{
-	color: white;
-	/* background: #1484BE; */
+	color: #646464;
 }
 .head_use_name{
 	width: 100px;

@@ -679,9 +679,13 @@ public class ResponseAction extends ActionSupport {
 			String isCheckCode = "0";
 			// 启用验证码
 			int refreshNum = surveyDetail.getRefreshNum();
-			if (ipNum >= refreshNum) {
-				// 启用验证码
-				isCheckCode = "3";
+			//是否有启用验证码
+			int refresh = surveyDetail.getRefresh();
+			if(refresh == 1) {
+				if (ipNum >= refreshNum) {
+					// 启用验证码
+					isCheckCode = "3";
+				}
 			}
 			ajaxResult = "{surveyStatus:\"" + surveyStatus
 					+ "\",isCheckCode:\"" + isCheckCode + "\"}";

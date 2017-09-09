@@ -67,13 +67,10 @@ public class SurveyDirectoryManagerImpl extends BaseServiceImpl<SurveyDirectory,
 	@Override
 	public void save(SurveyDirectory t) {
 		User user = accountManager.getCurUser();
-		String userId=t.getUserId();
 		String id=t.getId();
 		if(id==null){
 			t.setUserId(user.getId());
-			userId=t.getUserId();
 		}
-		if(userId!=null && userId.equals(user.getId())){
 			String sId=t.getSid();
 			if(sId==null || "".equals(sId)){
 				sId=RandomUtils.randomStr(6, 12);
@@ -97,7 +94,6 @@ public class SurveyDirectoryManagerImpl extends BaseServiceImpl<SurveyDirectory,
 				surveyDetail.setDirId(t.getId());
 				surveyDetailManager.save(surveyDetail);
 			}
-		}
 	}
 	
 	@Transactional

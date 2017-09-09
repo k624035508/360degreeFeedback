@@ -18,7 +18,7 @@
 				</p>
 				<p style="text-align: left;">
 				<c:if test="${viewAnswer eq 1 }">
-					<a href="/report.action?sid=${sid}" style="color:rgb(53, 117, 136); ">查看结果</a>
+					<a href="/report.action?sid=${sid}" style="color:rgb(53, 117, 136); ">查看统计结果</a>
 				</c:if>
 				</p>
 			</div>

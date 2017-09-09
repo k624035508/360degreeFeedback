@@ -29,7 +29,7 @@ public class SurveyDetail extends IdEntity{
 	
 	//防刷新  1启用 0不启用
 	private Integer refresh=1;
-	private Integer refreshNum=3;
+	private Integer refreshNum=2;
 	
 	//调查规则  --------  1公开, 2私有, 3令牌 
 	//3 表示启用访问密码
@@ -40,12 +40,12 @@ public class SurveyDetail extends IdEntity{
 	private Integer endType=1;
 	//结束时间
 	private Date endTime;
-	//收到的份数
+	//结束要收到份数的时间
 	private Integer endNum=1000;
 	//问卷说明
 	private String surveyNote;
 	
-	//是否依据收到的份数结束
+	//是否依据收到的份数结束 0:不启用  1:启用
 	private Integer ynEndNum=0;
 	private Integer ynEndTime=0;
 

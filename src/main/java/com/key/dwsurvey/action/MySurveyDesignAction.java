@@ -199,15 +199,13 @@ public class MySurveyDesignAction extends ActionSupport{
 				}
 				if(ynEndNum!=null && !"".equals(ynEndNum)){
 				    surveyDetail.setYnEndNum(Integer.parseInt(ynEndNum));
-				    //surveyDetail.setEndNum(Integer.parseInt(endNum));
-				    if(endNum!=null && endNum.matches("\\d*")){
-					surveyDetail.setEndNum(Integer.parseInt(endNum));			
-				    }
+				    surveyDetail.setEndNum(Integer.parseInt(endNum));
 				}
 				if(ynEndTime!=null && !"".equals(ynEndTime)){
 				    surveyDetail.setYnEndTime(Integer.parseInt(ynEndTime));
-//				    surveyDetail.setEndTime(endTime);
-				    surveyDetail.setEndTime(new Date());
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					Date date = sdf.parse(endTime);
+					surveyDetail.setEndTime(date);
 				}
 				if(showShareSurvey!=null && !"".equals(showShareSurvey)){
 				    surveyDetail.setShowShareSurvey(Integer.parseInt(showShareSurvey));

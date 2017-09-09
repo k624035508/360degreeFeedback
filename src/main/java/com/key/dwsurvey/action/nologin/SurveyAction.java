@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -14,6 +15,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.key.dwsurvey.entity.SurveyDetail;
 import com.key.dwsurvey.service.SurveyDirectoryManager;
 import com.key.dwsurvey.service.SurveyStyleManager;
 import org.apache.struts2.convention.annotation.*;
@@ -97,6 +99,21 @@ public class SurveyAction extends ActionSupport{
 		SurveyDirectory surveyTemp = surveyDirectoryManager.getSurveyBySid(sid);
 		surveyId = surveyTemp.getId();
 		SurveyDirectory survey=surveyDirectoryManager.getSurvey(surveyId);
+		SurveyDetail surveyDetail = survey.getSurveyDetail();
+		//如果启用了时间过滤
+		if (surveyDetail.getYnEndTime() == 1){
+			if(surveyDetail.getEndTime().before(new Date())){
+				survey.setSurveyState(2);
+				surveyDirectoryManager.save(survey);
+			}
+		}
+		//如果启用了数量过滤
+		if (surveyDetail.getYnEndNum() == 1){
+			if(surveyDetail.getEndNum() <= survey.getAnswerNum()){
+				survey.setSurveyState(2);
+				surveyDirectoryManager.save(survey);
+			}
+		}
 		// 如果是非发布状态
 		if (survey.getSurveyQuNum() <= 0 || survey.getSurveyState() != 1) {
 			request.setAttribute("surveyName", "目前该问卷已暂停收集，请稍后再试");

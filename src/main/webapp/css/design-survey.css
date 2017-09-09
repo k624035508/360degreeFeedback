@@ -55,16 +55,14 @@ textarea{
 	margin: 0px auto;
 }
 #header{
-	background: #122E57;
-	padding-top: 5px;
-	padding-bottom: 4px;
+	background: white;
+	padding: 5px 0;
 	overflow: auto;
 	zoom: 1; 
 	width: 100%;
-	background: #24292c;
 }
 .header_Item{
-	color: #F7F7F7;
+	color: #646464;
 }
 #header_left{
 	float: left;
@@ -72,7 +70,7 @@ textarea{
 }
 #header_left img{
 	float: left;
-	margin-left: 15px;
+	margin-left: 15px; margin-top: 6px;
 }
 #header_title{
 	color: #F7F7F7;
@@ -88,7 +86,7 @@ textarea{
 	padding-top: 10px;
 }
 #header_right a{
-	color: #F7F7F7;
+	color: #646464;
 	text-decoration: none;
 }
 #header_right a:hover{
