@@ -1,6 +1,5 @@
 jQuery.extend(jQuery.validator.messages, {
-    required: "考核表名称不能为空",
-    remote: "系统没有检测到相关用户"
+    required: "考核表名称不能为空"
 });
 
 $(function () {
@@ -37,48 +36,6 @@ $(function () {
             $("#examineeModal2 .div-set .div-set-bottom").hide();
         }
         $("#examineeModal2").modal();
-    });
-    $(".user-left li").click(function () {
-        var dimensionString = $(this).parents(".selectDimensionModalClass").attr("id");
-        var departmentId = $(this).data()["departmentId"];
-        if(dimensionString!=null){
-            var dimensionId = dimensionString.substr(dimensionString.length-1, 1);
-            $(".modal-middle iframe").attr("src", "/department.action?departmentId=" + departmentId + "&dimensionId=" + dimensionId);
-        } else{
-            $(".modal-middle iframe").attr("src", "/department.action?departmentId=" + departmentId);
-        }
-    });
-
-    $("#userSelectList td.user-delete").click(function () {
-        $(this).parent().remove();
-        var userSelectId = $(this).data()["selectId"];
-        var userSelectName = $(this).prev().text();
-
-        var examineeValue = $("#examinee").val();
-        var newExamineeValue = "";
-        if(examineeValue.indexOf(userSelectId) != -1){
-            newExamineeValue = examineeValue.split(userSelectId).join("");
-        }
-        newExamineeValue = newExamineeValue.split(",,").join(",");
-        if(newExamineeValue.indexOf(",") == 0){
-            newExamineeValue = newExamineeValue.substr(1);
-        }
-        var reg=/,$/gi;
-        newExamineeValue=newExamineeValue.replace(reg,"");
-        $("#examinee").val(newExamineeValue);
-
-        var selectName = $(".selectName").val();
-        var newSelectName = "";
-        if(selectName.indexOf(userSelectName) != -1){
-            newSelectName = selectName.split(userSelectName).join("");
-        }
-        newSelectName = newSelectName.split(",,").join(",");
-        if(newSelectName.indexOf(",") == 0){
-            newSelectName = newSelectName.substr(1);
-        }
-        var reg=/,$/gi;
-        newSelectName=newSelectName.replace(reg,"");
-        $(".selectName").val(newSelectName);
     });
 
     var examineeValue = "";
@@ -121,48 +78,61 @@ $(function () {
         var arrayTop = $("#top-textarea").val().split("\n"); // 上级
         var arrayMiddle = $("#middle-textarea").val().split("\n"); //同级
         var arrayBottom = $("#bottom-textarea").val().split("\n"); //下级
-        for(var i=0; i<arrayOwn.length; i++){
-            if(arrayTop[i]==undefined){arrayTop[i]="";}
-            if(arrayMiddle[i]==undefined){arrayMiddle[i]="";}
-            if(arrayBottom[i]==undefined){arrayBottom[i]="";}
+        for(var i=0; i<arrayOwn.length; i++) {
+            if (arrayTop[i] == undefined) {
+                arrayTop[i] = "";
+            }
+            if (arrayMiddle[i] == undefined) {
+                arrayMiddle[i] = "";
+            }
+            if (arrayBottom[i] == undefined) {
+                arrayBottom[i] = "";
+            }
             var examineeOwnValue = "";
-            examineeOwnValue += arrayOwn[i] ;
+            if (arrayOwn[i] != "") {
+            examineeOwnValue += arrayOwn[i];
             examineeOwnValue += "={";
-            if(arrayTop[i]!=""){
+            if (arrayTop[i] != "") {
                 examineeOwnValue += arrayTop[i];
                 examineeOwnValue += "=2,";
             }
-            if(arrayMiddle[i]!=""){
+            if (arrayMiddle[i] != "") {
                 examineeOwnValue += arrayMiddle[i];
                 examineeOwnValue += "=3,";
             }
-            if(arrayBottom[i]!=""){
+            if (arrayBottom[i] != "") {
                 examineeOwnValue += arrayBottom[i];
                 examineeOwnValue += "=4,";
             }
             examineeOwnValue += "},";
             examineeValue += examineeOwnValue;
-                $(".examinee-table").append("<tr class='examinee-tr'><td>" + arrayOwn[i] + "</td><td>" + arrayTop[i] + "</td><td>" + arrayMiddle[i] + "</td><td>" + arrayBottom[i] + "</td></tr>");
+            $(".examinee-table").append("<tr class='examinee-tr'><td>" + arrayOwn[i] + "</td><td>" + arrayTop[i] + "</td><td>" + arrayMiddle[i] + "</td><td>" + arrayBottom[i] + "</td></tr>");
+        }
         }
         examineeValue += "}";
         console.log(examineeValue);
-        $("#examineeValue").val(examineeValue);
+        var postExamineeValue = examineeValue.replace(/\&/g, "%26");
+        $.ajax({
+            type: "post",
+            url: "/review/design/feedback-review!checkExamineeUn.action",
+            data: "examineeValue=" + postExamineeValue,
+            success: function (msg) {
+                var jsons=eval("("+msg+")");
+                $("td.ac-input-error label").remove();
+                if( jsons.result == true) {
+                    $("#examineeValue").val(examineeValue);
+                } else {
+                    $("td.ac-input-error").append("<label class='error'>" + jsons.name + "为非法用户</label>");
+                }
+            },
+            error: function(){
+                console.error("error");
+            }
+        })
     });
-
     //规则验证
     $("#inputReviewForm").validate({
         rules:{
-            examineeValue: {
-                remote: {
-                    url: "/review/design/feedback-review!checkExamineeUn.action",
-                    type: "post",
-                    data:{
-                        "examineeValue": function () {
-                            return $("input[name='examineeValue']").val();
-                        }
-                    }
-                }
-            },
             name:{required:true}
         },
         errorPlacement: function (error, element) {
@@ -176,5 +146,6 @@ $(function () {
             form.submit();
         }
     });
+
 });
 

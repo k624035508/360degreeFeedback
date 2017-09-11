@@ -86,7 +86,7 @@
                                                     </td>
                                                     <td class="ac-input-td"><input type="hidden" name="examineeValue" id="examineeValue" value="" /></td>
                                                     <!-- 错误提示 -->
-                                                    <td class="ac-input-error" style="color: #c40000; display: none;">系统没有检测到相关用户</td>
+                                                    <td class="ac-input-error"></td>
                                                 </tr>
                                                 <%--<tr>--%>
                                                     <%--<td width="150" align="right"><span class="red-color">*&nbsp;</span>权重设置</td>--%>

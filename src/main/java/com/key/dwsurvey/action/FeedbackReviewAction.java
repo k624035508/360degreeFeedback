@@ -4,6 +4,7 @@ import com.key.common.base.action.CrudActionSupport;
 import com.key.common.base.entity.User;
 import com.key.common.plugs.page.Page;
 import com.key.common.plugs.page.PropertyFilter;
+import com.key.common.utils.StringUtils;
 import com.key.common.utils.web.Struts2Utils;
 import com.key.dwsurvey.entity.*;
 import com.key.dwsurvey.service.*;
@@ -157,7 +158,7 @@ public class FeedbackReviewAction extends CrudActionSupport<FeedbackReview, Stri
             Map<String, Object> userMapItem = userMap.get(key);
             User examineeUser = userManager.findByUserName(key);
             reviewExamineeList.add(examineeUser.getId());
-            if (ownWeight != "" && ownWeight != "0"){
+            if (ownWeight != "" && !ownWeight.equals("0")){
                 ReviewDimension ownDimension = new ReviewDimension();
                 ownDimension.setDimensionId("1");
                 ownDimension.setWeight(ownWeight);
@@ -203,26 +204,33 @@ public class FeedbackReviewAction extends CrudActionSupport<FeedbackReview, Stri
         String mapString = request.getParameter("examineeValue");
         JSONObject jasonObject = JSONObject.fromObject(mapString);
         Map<String, Map<String, Object>> userMap = (Map) jasonObject;
-        String result="true";
+        StringBuffer result = new StringBuffer();
+        StringBuffer nohaveName = new StringBuffer();
         for(String key: userMap.keySet()) {
             Map<String, Object> userMapItem = userMap.get(key);
             User examineeUser = userManager.findNicknameUn(null, key);
             if(examineeUser==null){
-                result="false";
-                break;
+                nohaveName.append(key + " ");
             }
             for (String keyItem : userMapItem.keySet()) {
                 String[] userNames = keyItem.split("&");
                 for(int k = 0; k < userNames.length; k++){
                     User investigateUser = userManager.findNicknameUn(null, userNames[k]);
                     if (investigateUser == null){
-                        result = "false";
-                        break;
+                        nohaveName.append(userNames[k] + " ");
                     }
                 }
             }
         }
-        response.getWriter().write(result);
+        if(StringUtils.isBlank(nohaveName)){
+            result.append("{result:true}");
+        } else{
+            result.append("{result:false,name:'");
+            result.append(nohaveName);
+            result.append("'}");
+        }
+        response.setHeader("Content-Type", "text/plain;charset=UTF-8");
+        response.getWriter().write(result.toString());
     }
 
     @Override
