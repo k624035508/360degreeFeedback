@@ -2061,7 +2061,9 @@ function editAble(editAbleObj){
         $("#dwCommonEditRoot ul.dwComEditOptionItemUl").show();
         $("#dwCommonEditRoot ul.dwComEditOptionUl").hide();
         $("#dwCommonEditRoot").addClass("quItemItemTitleEdit");
-    }else if(thClass.indexOf("dwSvyNoteEdit")>=0){
+    }else if(thClass.indexOf("quItemItemDescEdit")>0){
+        $("#dwCommonEditRoot").addClass("quItemItemDescEdit");
+    } else if(thClass.indexOf("dwSvyNoteEdit")>=0){
         //问卷欢迎语
         $("#dwCommonEditRoot").addClass("svyNoteEdit");
     }else if(thClass.indexOf("dwSvyName")>=0){
@@ -2591,7 +2593,13 @@ function delQuOptionCallBack(optionParent){
         }else{
             optionParent.parent().remove();
         }
-    }else{
+    }
+    else if(quType=="DEGREEFEEDBACK"){
+        var nextIndex = optionParent.parent().find("li").index(optionParent);
+        optionParent.parent().parent().next().find(".quItemItemDescEditUl").find("li").eq(nextIndex).remove();
+        optionParent.remove();
+    }
+    else{
         optionParent.remove();
     }
     dwCommonEditHide();
@@ -2913,25 +2921,13 @@ function saveFeedback(quItemBody,callback) {
         var quItemOptions=quItemBody.find(".quCoItem table.feedbackTable tr.feedbackTableTr td.feedbackTableEditTd");
         $.each(quItemOptions,function(i){
             var optionValue=$(this).find("label.quCoOptionEdit").html();
-            var optionDesc=$(this).next().find("label.quOptionDescEdit").html();
             var optionId=$(this).find(".quItemInputCase input[name='quItemId']").val();
             var quItemSaveTag=$(this).find(".quItemInputCase input[name='quItemSaveTag']").val();
             var quItemDescSaveTag=$(this).find(".quItemInputCase input[name='quOptionDescSaveTag']").val();
             if(quItemSaveTag==0){
                 optionValue=escape(encodeURIComponent(optionValue));
                 data+="&optionValue_"+i+"="+optionValue;
-                optionDesc=encodeURIComponent(optionDesc);
-                data+="&optionDesc_"+i+"="+optionDesc;
                 data+="&optionId_"+i+"="+optionId;
-            }
-            if(quItemDescSaveTag==0){
-                if(quItemSaveTag==1) {
-                    optionValue=escape(encodeURIComponent(optionValue));
-                    data += "&optionValue_" + i + "=" + optionValue;
-                    optionDesc = encodeURIComponent(optionDesc);
-                    data += "&optionDesc_" + i + "=" + optionDesc;
-                    data += "&optionId_" + i + "=" + optionId;
-                }
             }
             var quItemItemOptions=$(this).next().find("ul.quItemItemEditUl li.quItemItemEditLi");
             var quItemItemDescOptions=$(this).next().next().find("ul.quItemItemDescEditUl li.quItemItemDescEditLi");
@@ -2941,24 +2937,15 @@ function saveFeedback(quItemBody,callback) {
                 var optionItemId=$(this).find(".quItemInputCase input[name='quItemItemId']").val();
                 var quItemItemSaveTag=$(this).find(".quItemInputCase input[name='quItemItemSaveTag']").val();
                 if(quItemItemSaveTag==0){
-                    if(quItemSaveTag==1) {
-                        optionItemValue = escape(encodeURIComponent(optionItemValue));
-                        data += "&optionItemValue_" + i + "_" + j + "=" + optionItemValue;
-                        optionItemDescValue = escape(encodeURIComponent(optionItemDescValue));
-                        data += "&optionItemDesc_" + i + "_" + j + "=" +optionItemDescValue;
-                        data += "&optionItemId_" + i + "_" + j + "=" + optionItemId;
+                    optionItemValue = escape(encodeURIComponent(optionItemValue));
+                    data += "&optionItemValue_" + i + "_" + j + "=" + optionItemValue;
+                    optionItemDescValue = escape(encodeURIComponent(optionItemDescValue));
+                    data += "&optionItemDesc_" + i + "_" + j + "=" +optionItemDescValue;
+                    data += "&optionItemId_" + i + "_" + j + "=" + optionItemId;
+                    if(data.indexOf("optionId_" + i) == -1){
                         optionValue=escape(encodeURIComponent(optionValue));
                         data+="&optionValue_"+i+"="+optionValue;
-                        optionDesc=encodeURIComponent(optionDesc);
-                        data+="&optionDesc_"+i+"="+optionDesc;
-                        data += "&optionId_" + i + "=" + optionId;
-                    }
-                    if(quItemSaveTag==0) {
-                        optionItemValue = escape(encodeURIComponent(optionItemValue));
-                        data += "&optionItemValue_" + i + "_" + j + "=" + optionItemValue;
-                        optionItemDescValue = escape(encodeURIComponent(optionItemDescValue));
-                        data += "&optionItemDesc_" + i + "_" + j + "=" +optionItemDescValue;
-                        data += "&optionItemId_" + i + "_" + j + "=" + optionItemId;
+                        data+="&optionId_"+i+"="+optionId;
                     }
                 }
             });

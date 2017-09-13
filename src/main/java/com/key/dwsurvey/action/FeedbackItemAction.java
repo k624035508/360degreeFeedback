@@ -111,7 +111,6 @@ public class FeedbackItemAction extends ActionSupport {
         for(String key: optionIdMap.keySet()){
             String optionId = optionIdMap.get(key).toString();
             String optionNameValue = request.getParameter("optionValue_" + key);
-            String optionDesc = request.getParameter("optionDesc_" + key);
             //quOptionItem
             DegreeFeedbackItem degreeFeedbackItem = new DegreeFeedbackItem();
             if("".equals(optionId)){
@@ -120,8 +119,6 @@ public class FeedbackItemAction extends ActionSupport {
             degreeFeedbackItem.setId(optionId);
             optionNameValue= URLDecoder.decode(optionNameValue,"utf-8");
             degreeFeedbackItem.setName(optionNameValue);
-            optionDesc= URLDecoder.decode(optionDesc,"utf-8");
-            degreeFeedbackItem.setDescription(optionDesc);
             degreeFeedbackItem.setOrderById(Integer.parseInt(key));
             List<DegreeFeedbackItemItem> itemItems = new ArrayList<DegreeFeedbackItemItem>();
             Map<String, Object> optionItemIdMap = WebUtils.getParametersStartingWith(request, "optionItemId_" + key + "_");
